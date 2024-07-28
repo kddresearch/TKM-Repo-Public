@@ -1,0 +1,58 @@
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+</style>
+{% extends "base.html" %}
+{% block title %} Documents {% endblock %} 
+{% block content %}
+
+<p>Loading time: {{num_seconds}} seconds</p>
+<p>Number of documents: {{ documents|length }} </p>
+
+<div>
+    <div id="chart" class="chart"></div>
+</div>
+
+{% if showHDP %}
+<div>
+    <textarea readonly style="width:100%; height:400px; font-family:Consolas; " >
+        {{ model_summary }}
+    </textarea>
+</div>
+{% endif %}
+
+<br />
+
+<table>
+    <tr>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Date published</th>
+        <th>Type</th>
+        <th>Degree</th>
+        <th>Department</th>
+        <th>Advisor</th>
+    </tr>
+    {% for document in documents %}
+    <tr>
+        <td>{{ document['author'] }}</td>
+        <td>{{ document['title'] }}</td>
+        <td>{{ document['date_published'] }}</td>
+        <td>{{ document['type'] }}</td>
+        <td>{{ document['degree'] }}</td>
+        <td>{{ document['department'] }}</td>
+        <td>{{ document['advisor'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type='text/javascript'>
+    var graphs = {{graphJSON | safe}};
+    Plotly.plot('chart',graphs,{});
+</script>
+
+
+{% endblock %}

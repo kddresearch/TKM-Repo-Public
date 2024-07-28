@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %} 
+{% block content %}
+    <div>
+        <!-- <form action="http://localhost:5000/get_document_by_author" method="GET">
+            <p>Author first name <input type="text" name="author_first" /></p>
+            <p>Author last name <input type="text" name="author_last" /></p>
+            <p><input type = "submit" value = "submit" /></p>
+        </form> -->
+
+        <!-- <h2>KDD Theses collection</h2>
+        <form action="{{ url_for('visualize') }}" method="GET">
+            <p>Number of topics <input type="text" name="num_topics" /></p>
+            <input type="submit" value="Visualize" />
+        </form> -->
+        
+        <a href="{{ url_for('get_kdd_theses') }}">Get KDD Theses and Dissertations</a>
+        <br />
+        <a href="{{ url_for('get_all_theses') }}">Get All KRex Theses</a>
+        <br />
+        <br />
+        <br />
+
+
+        <h2>ETDR full collection (LDA)</h2>
+        <form action="{{ url_for('visualize_lda') }}" method="GET">
+            <p>Number of topics <input type="text" name="num_topics" /></p>
+            <input type="submit" value="Visualize" />
+        </form>
+        
+        <br />
+
+        <h2>ETDR full collection (HDP)</h2>
+        <form action="{{ url_for('visualize_hdp') }}" method="GET">
+            <div class="form-group">
+                <label>Term Weight</label>
+                <select name="term_weight" class="form-control">
+                    <option value="ONE">ONE (consider every term equal)</option>
+                    <option value="IDF">IDF (inverse document frequency)</option>
+                </select>
+            </div>
+            <div class="form row">
+                <div class="form-group col-md-3">
+                    <label>min_cf</label>
+                    <input name="min_cf" type="number" value="0" class="form-control" />
+                </div> 
+                <div class="form-group col-md-3">
+                    <label>min_df</label>
+                    <input name="min_df" type="number" value="0" class="form-control" />
+                </div> 
+                <div class="form-group col-md-3">
+                    <label>Remove top</label>
+                    <input name="rm_top" type="number" value="0" class="form-control" />
+                </div> 
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label>Burn-in Iterations</label>
+                    <input name="burn_in" type="number" value="0" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Alpha</label>
+                    <input name="alpha" type="number" step="0.01" value="0.1" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Eta</label>
+                    <input name="eta" type="number" step="0.01" value="0.01" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Gamma</label>
+                    <input name="gamma" type="number" step="0.01" value="0.1" class="form-control" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Visualize</button>
+        </form>
+
+        <br />
+
+        <h2>Visualize by department (using tomotopy HDP)</h2>
+        <form action="{{ url_for('doc_by_department') }}" method="GET">
+            <div class="form-group">
+                <label>Department</label>
+                <select name="department_name" class="form-control">
+                    {% for department in departments %}
+                    <option value="{{ department }}">{{ department }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Term Weight</label>
+                <select name="term_weight" class="form-control">
+                    <option value="ONE">ONE (consider every term equal)</option>
+                    <option value="IDF">IDF (inverse document frequency)</option>
+                </select>
+            </div>
+            <div class="form row">
+                <div class="form-group col-md-3">
+                    <label>min_cf</label>
+                    <input name="min_cf" type="number" value="0" class="form-control" />
+                </div> 
+                <div class="form-group col-md-3">
+                    <label>min_df</label>
+                    <input name="min_df" type="number" value="0" class="form-control" />
+                </div> 
+                <div class="form-group col-md-3">
+                    <label>Remove top</label>
+                    <input name="rm_top" type="number" value="0" class="form-control" />
+                </div> 
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label>Burn-in Iterations</label>
+                    <input name="burn_in" type="number" value="0" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Alpha</label>
+                    <input name="alpha" type="number" step="0.01" value="0.1" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Eta</label>
+                    <input name="eta" type="number" step="0.01" value="0.01" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Gamma</label>
+                    <input name="gamma" type="number" step="0.01" value="0.1" class="form-control" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Visualize</button>
+
+        </form>
+
+        <br />
+
+        <h2>Get documents by advisor</h2>
+        <form action="{{ url_for('doc_by_advisor') }}" method="GET">
+            <select name="advisor_name">
+                {% for advisor in advisors %}
+                <option value="{{ advisor }}">{{ advisor }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Search" />
+        </form>
+
+    </div>
+{% endblock %}

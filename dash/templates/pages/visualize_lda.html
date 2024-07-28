@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} Visualize {% endblock %} 
+{% block content %}
+<div>
+    <p>Generated LDA model with {{ topics|length }} topics</p>
+    <p>Loading time: {{num_seconds}} seconds</p>
+    <ol>
+        {% for topic in topics %}
+            <li>{{topic}}</li>
+        {% endfor %}
+    </ol>
+    <div id="chart" class="chart"></div>
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type='text/javascript'>
+    var graphs = {{graphJSON | safe}};
+    Plotly.plot('chart',graphs,{});
+</script>
+{% endblock %}

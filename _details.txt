@@ -1,0 +1,31 @@
+MongoDB knowledge-map.theses
+
+Fields:
+_id (ObjectId)
+title (String)
+authors (String)
+text (String)
+text_processed (Array)
+	- remove punctuation
+	- tokenize
+	- lemmatize
+title_manual (String)
+authors_manual (String)
+year_manual (Int32)
+text_processed_optimized (Array)
+	- tokenize words
+	- gensim.utils.simple_preprocess
+	- remove stopwords
+	- gensim.Phrases bigram and trigram models
+	- lemmatize
+
+text_processed
+--> preprocessing done in text_process.ipynb
+text_processed2
+--> preprocessing done by only considering nouns
+--> improved LDA baseline
+
+S72VkCxaBmA@$F%@
+
+
+
